@@ -73,7 +73,7 @@ router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
       { $match: { createdAt: { $gte: lastYear } } },
       {
         $project: {
-          month: { $month: ":$createdAt" },
+          month: { $month: "$createdAt" },
         },
       },
       {
@@ -83,6 +83,7 @@ router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
         },
       },
     ]);
+    res.status(200).json(data);
   } catch (err) {
     res.status(500).json(err);
   }
